@@ -12,7 +12,7 @@ const ad = new ActiveDirectory(activeDirectoryConfig);
 const groupName = process.env.AUTHORIZED_AD_GROUP;
 
 module.exports.renderLoginForm = (req, res) => {
-    res.render('login')
+    res.render('login/login')
 }
 
 module.exports.authenticate = (req, res) => {
@@ -33,4 +33,11 @@ module.exports.authenticate = (req, res) => {
             return res.send('You are not authorized to use this system.')
         }
     })
+}
+
+module.exports.logout = (req, res) => {
+    userLoggingOff = req.session.user_id;
+    req.session.user_id = undefined;
+    console.log(`${userLoggingOff} has logged off`)
+    return res.redirect('login/login');
 }

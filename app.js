@@ -35,6 +35,13 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+    res.locals.user_id = req.session.user_id;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 app.use('/', loginRoutes);
 app.use('/create', createRoutes);
