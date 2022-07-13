@@ -1,0 +1,65 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="row d-flex justify-content-center align-items-center vh-100" style="max-width: 100%;">
+
+        <div class="border rounded border-dark col-6 p-4">
+            <div class="row text-center mb-4 border-bottom border-dark">
+                <h1 class="h1">Create a New User</h1>
+            </div>
+
+            <form action="/create" method="post">
+                <div class="row mb-3">
+                    <div class="col mx-auto mb-3">
+                        <label class="form-label" for="firstName">First Name:</label>
+                        <input class="form-control" type="text" id="firstName" name="newUser[firstName]">
+                    </div>
+                    <div class="col mx-auto">
+                        <label class="form-label" for="lastName">Last Name:</label>
+                        <input class="form-control" type="text" id="lastName" name="newUser[lastName]">
+                    </div>
+                    <div class="col mx-auto">
+                        <label for="emailDomain" class="form-label">Email Domain:</label>
+                        <select id="emailDomain" name="newUser[emailDomain]" class="form-select">
+                            <option selected value="@whitesrfs.org">@whitesrfs.org</option>
+                            <option value="@compassroseacademy.org">@compassroseacademy.org</option>
+                        </select>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col mx-auto">
+                            <label for="office" class="form-label">Office:</label>
+                            <select id="office" name="newUser[office]" class="form-select">
+                                <option selected value="compassRose">Compass Rose</option>
+                                <option value="Crown Point">Crown Point</option>
+                                <option value="Fort Wayne">Fort Wayne</option>
+                                <option value="Greenwood">Greenwood</option>
+                                <option value="Indianapolis">Indianapolis</option>
+                                <option value="Recovery Services">Recovery Services</option>
+                                <option value="South Bend">South Bend</option>
+                                <option value="Volunteers & Interns">Volunteers & Interns</option>
+                                <option selected value="Wabash">Wabash</option>
+                            </select>
+                        </div>
+                        <div class="col mx-auto">
+                            <label for="jobTitle" class="form-label">Job Title:</label>
+                            <select id="jobTitle" name="newUser[jobTitle]" class="form-select">
+                                <option value="caseManager">Case Manager</option>
+                                <option value="compassRoseFamilyTeacher">Compass Rose Family Teacher</option>
+                                <option value="compassRoseSchoolTeacher">Compass Rose School Teacher</option>
+                                <option value="familySpecialist">Family Specialist</option>
+                                <option value="familyPreservation">Family Preservation</option>
+                                <option value="internFamilySpecialist">Intern (Family Specialist)</option>
+                                <option value="nightShift">Night Shift/YCS</option>
+                                <option value="recoveryServices">Recovery Services</option>
+                                <option selected value="residentialFamilyTeacher">Residential Family Teacher</option>
+                                <option value="residentialTeachingSpecialist">Residential Teaching Specialist</option>
+                                <option value="storeAssociate">Store Associate</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 row col-3 mx-auto">
+                    <button class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>

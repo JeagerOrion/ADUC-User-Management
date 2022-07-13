@@ -7,4 +7,8 @@ router.route('/')
     .get(isLoggedIn, create.renderNewUserForm)
     .post(create.createNewUser)
 
+router.get('/success', create.success);
+
+router.get('/duplicate', create.duplicate);
+
 module.exports = router;
