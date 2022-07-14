@@ -50,6 +50,19 @@ module.exports.createNewUser = (req, res) => {
             const organizationalUnit = 'OU=Users,OU=IT Dept,DC=whitesrfs,DC=loc'
             const distinguishedName = `CN=${firstName} ${lastName},OU=Users,OU=${office},DC=whitesrfs,DC=loc`
 
+            // Find template to copy from 
+
+            const templateUser = await ad.user(jobTitle).get();
+
+            const groups = templateUser.groups.map(groupArray => groupArray.cn);
+            console.log(groups);
+
+            async function iterateOverGroups(groups) {
+                for (let group of groups) {
+                    await ad.user(newUser.sAMAccountName).addToGroup(group)
+                }
+            }
+
             //create newUser object
 
             const newUser = {
@@ -76,10 +89,19 @@ module.exports.createNewUser = (req, res) => {
                         return res.send('Something went wrong with adding the new user');
                     } else {
                         //Redirect on successful user creation
-                        console.log('Success', newUser)
-                        ldapClient.unbind();
-                        console.log('Unbind complete');
-                        return res.redirect('create/success')
+                        console.log('Successfully created new user', newUser)
+                        console.log(newUser.sAMAccountName);
+                        iterateOverGroups(groups)
+                            .then((result) => {
+                                console.log(result)
+                                ldapClient.unbind();
+                                console.log('Unbind complete');
+                                return res.redirect('create/success')
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            })
+
                     }
                 })
             } else {
