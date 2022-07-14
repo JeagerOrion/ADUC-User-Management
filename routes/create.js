@@ -11,4 +11,8 @@ router.get('/success', create.success);
 
 router.get('/duplicate', create.duplicate);
 
+router.route('/disable')
+    .get(create.renderDisableForm)
+    .post(create.disableUserAccount)
+
 module.exports = router;

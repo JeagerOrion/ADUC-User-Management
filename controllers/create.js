@@ -49,6 +49,7 @@ module.exports.createNewUser = (req, res) => {
             const email = userName + emailDomain;
             const organizationalUnit = 'OU=Users,OU=IT Dept,DC=whitesrfs,DC=loc'
             const distinguishedName = `CN=${firstName} ${lastName},OU=Users,OU=${office},DC=whitesrfs,DC=loc`
+            let newUserPassword = process.env.NEW_USER_PASSWORD;
 
             // Find template to copy from 
 
@@ -61,7 +62,17 @@ module.exports.createNewUser = (req, res) => {
                 for (let group of groups) {
                     await ad.user(newUser.sAMAccountName).addToGroup(group)
                 }
-            }
+            };
+
+            async function enableUserAccount(user) {
+                try {
+                    const isUserEnabled = await ad.user(user).enable();
+                    return (isUserEnabled);
+                } catch (err) {
+                    console.log('There was a problem enabling the account', err);
+                    console.log(user);
+                }
+            };
 
             //create newUser object
 
@@ -79,7 +90,7 @@ module.exports.createNewUser = (req, res) => {
             const userExists = await ad.user(userName).exists();
 
             if (!userExists) {
-                //If the user doesn't exist try to add new user to Active Directory
+                // If the user doesn't exist try to add new user to Active Directory
                 ldapClient.add(distinguishedName, newUser, err => {
                     if (err) {
                         console.log(err);
@@ -88,12 +99,16 @@ module.exports.createNewUser = (req, res) => {
                         console.log('Unbind complete');
                         return res.send('Something went wrong with adding the new user');
                     } else {
-                        //Redirect on successful user creation
+                        //After successsful user creation
+
                         console.log('Successfully created new user', newUser)
                         console.log(newUser.sAMAccountName);
-                        iterateOverGroups(groups)
+
+                        // Add user to groups
+                        iterateOverGroups(groups);
+
+                        enableUserAccount(newUser.sAMAccountName)
                             .then((result) => {
-                                console.log(result)
                                 ldapClient.unbind();
                                 console.log('Unbind complete');
                                 return res.redirect('create/success')
@@ -101,12 +116,10 @@ module.exports.createNewUser = (req, res) => {
                             .catch((err) => {
                                 console.log(err)
                             })
-
                     }
                 })
             } else {
                 //If the user already exists, notify the creator
-
 
                 console.log(`The user ${userName} already exists!`);
                 ldapClient.unbind();
@@ -119,9 +132,29 @@ module.exports.createNewUser = (req, res) => {
 }
 
 module.exports.success = (req, res) => {
-    res.render('create/success')
+    res.render('create/success');
 }
 
 module.exports.duplicate = (req, res) => {
-    res.render('create/duplicate')
+    res.render('create/duplicate');
+}
+
+module.exports.renderDisableForm = (req, res) => {
+    res.render('create/disable');
+}
+
+module.exports.disableUserAccount = (req, res) => {
+    ldapClient.bind(domainUser, domainUserPassword, async (err) => {
+        if (err) console.log(err);
+        const { userName } = req.body.disable;
+        try {
+            const disabledUser = await ad.user(userName).enable();
+            console.log(disabledUser);
+        } catch (err) {
+            console.log(`Unable to disable user ${userName}`)
+            console.log(err);
+            return res.redirect('disable')
+        }
+        return res.redirect('disable')
+    })
 }

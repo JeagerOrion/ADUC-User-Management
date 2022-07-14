@@ -2,6 +2,8 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+require('win-ca');
+
 const express = require('express');
 const app = express();
 const ejsMate = require('ejs-mate');

@@ -21,6 +21,7 @@
     "express-session": "^1.17.3",
     "ldapjs": "^2.3.3",
     "method-override": "^3.0.0",
-    "node-powershell": "^5.0.1"
+    "node-powershell": "^5.0.1",
+    "win-ca": "^3.5.0"
   }
 }
