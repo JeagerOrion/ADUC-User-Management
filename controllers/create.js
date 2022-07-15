@@ -158,3 +158,20 @@ module.exports.disableUserAccount = (req, res) => {
         return res.redirect('disable')
     })
 }
+
+module.exports.confirmDisableUserAccount = (req, res) => {
+    ldapClient.bind(domainUser, domainUserPassword, async (err) => {
+        if (err) console.log(err);
+        const { userName } = req.body.disable;
+        try {
+            const userToDisable = await ad.user(userName).get();
+            console.log(userToDisable);
+            res.render('confirmDisable', userToDisable)
+        } catch (err) {
+            console.log(`Unable to find user ${userName}`)
+            console.log(err);
+            return res.redirect('disable')
+        }
+        return res.redirect('disable')
+    })
+}

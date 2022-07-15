@@ -6,6 +6,8 @@ router.route('/')
     .get(login.renderLoginForm)
     .post(login.authenticate)
 
+router.get('/home', login.homePage);
+
 router.post('/logout', login.logout);
 
 module.exports = router

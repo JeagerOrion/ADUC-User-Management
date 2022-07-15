@@ -15,4 +15,6 @@ router.route('/disable')
     .get(create.renderDisableForm)
     .post(create.disableUserAccount)
 
+router.post('/confirmDisable', create.confirmDisableUserAccount);
+
 module.exports = router;

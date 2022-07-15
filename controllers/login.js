@@ -27,7 +27,7 @@ module.exports.authenticate = (req, res) => {
         if (isMember === true) {
             console.log(`User: ${username} has logged in`);
             req.session.user_id = username;
-            return res.redirect('create');
+            return res.redirect('home');
         }
         if (isMember === false) {
             return res.send('You are not authorized to use this system.')
@@ -40,4 +40,8 @@ module.exports.logout = (req, res) => {
     req.session.user_id = undefined;
     console.log(`${userLoggingOff} has logged off`)
     return res.redirect('login/login');
+}
+
+module.exports.homePage = (req, res) => {
+    res.render('login/home')
 }
