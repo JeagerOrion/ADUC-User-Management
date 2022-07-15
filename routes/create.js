@@ -3,8 +3,10 @@ const router = express.Router();
 const create = require('../controllers/create');
 const { isLoggedIn } = require('../middleware');
 
+// isLoggedIn, 
+
 router.route('/')
-    .get(isLoggedIn, create.renderNewUserForm)
+    .get(create.renderNewUserForm)
     .post(create.createNewUser)
 
 router.get('/success', create.success);

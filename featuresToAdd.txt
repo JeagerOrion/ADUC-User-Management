@@ -1,0 +1,18 @@
+Create templates for regional office accounts
+Intelligent Office/job title drop downs
+
+Pass user details to success page
+Verify account before disabling
+
+Error handling
+
+Disable user sync with Google
+Create user sync with eReach
+
+SMTP/email service for:
+    Account creation/disabling
+    Failed sign in attempts
+    Extra IT needs
+
+Server logging - sign ins and user activity with timestamps
+

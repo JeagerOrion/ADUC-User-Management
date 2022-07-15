@@ -46,7 +46,7 @@ module.exports.createNewUser = (req, res) => {
             const { firstName, lastName, emailDomain, office, jobTitle } = req.body.newUser;
             const userName = `${firstName}.${lastName}`;
             const commonName = `${firstName} ${lastName}`
-            const email = userName + emailDomain;
+            const email = userName.toLowerCase() + emailDomain;
             const organizationalUnit = 'OU=Users,OU=IT Dept,DC=whitesrfs,DC=loc'
             const distinguishedName = `CN=${firstName} ${lastName},OU=Users,OU=${office},DC=whitesrfs,DC=loc`
             let newUserPassword = process.env.NEW_USER_PASSWORD;
@@ -55,24 +55,8 @@ module.exports.createNewUser = (req, res) => {
 
             const templateUser = await ad.user(jobTitle).get();
 
+            const description = templateUser.description;
             const groups = templateUser.groups.map(groupArray => groupArray.cn);
-            console.log(groups);
-
-            async function iterateOverGroups(groups) {
-                for (let group of groups) {
-                    await ad.user(newUser.sAMAccountName).addToGroup(group)
-                }
-            };
-
-            async function enableUserAccount(user) {
-                try {
-                    const isUserEnabled = await ad.user(user).enable();
-                    return (isUserEnabled);
-                } catch (err) {
-                    console.log('There was a problem enabling the account', err);
-                    console.log(user);
-                }
-            };
 
             //create newUser object
 
@@ -84,8 +68,16 @@ module.exports.createNewUser = (req, res) => {
                 userPrincipalName: email,
                 sAMAccountName: userName,
                 givenName: firstName,
-                displayName: commonName
+                displayName: commonName,
+                userAccountControl: 544,
+                description
             }
+
+            async function iterateOverGroups(groups) {
+                for (let group of groups) {
+                    await ad.user(newUser.sAMAccountName).addToGroup(group)
+                }
+            };
 
             const userExists = await ad.user(userName).exists();
 
@@ -105,9 +97,8 @@ module.exports.createNewUser = (req, res) => {
                         console.log(newUser.sAMAccountName);
 
                         // Add user to groups
-                        iterateOverGroups(groups);
-
-                        enableUserAccount(newUser.sAMAccountName)
+                        console.log(groups);
+                        iterateOverGroups(groups)
                             .then((result) => {
                                 ldapClient.unbind();
                                 console.log('Unbind complete');
@@ -148,7 +139,7 @@ module.exports.disableUserAccount = (req, res) => {
         if (err) console.log(err);
         const { userName } = req.body.disable;
         try {
-            const disabledUser = await ad.user(userName).enable();
+            const disabledUser = await ad.user(userName).disable();
             console.log(disabledUser);
         } catch (err) {
             console.log(`Unable to disable user ${userName}`)

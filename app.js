@@ -2,7 +2,8 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-require('win-ca');
+const https = require('https');
+const fs = require('fs');
 
 const express = require('express');
 const app = express();
@@ -48,8 +49,17 @@ app.use((req, res, next) => {
 app.use('/', loginRoutes);
 app.use('/create', createRoutes);
 
+const httpsConfig = {
+    pfx: fs.readFileSync(path.join(__dirname, 'newUserSiteCertificate.pfx')),
+    passphrase: process.env.CERTIFICATE_PASSPHRASE
+};
+
+const httpsServer = https.createServer(httpsConfig, app)
+
+httpsServer.listen(port, () => console.log(`Secure server is listening on ${port}`))
 
 
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`)
-})
+
+// app.listen(port, () => {
+//     console.log(`Listening on port ${port}`)
+// })
