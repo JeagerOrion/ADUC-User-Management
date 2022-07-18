@@ -58,7 +58,7 @@ module.exports.createNewUser = (req, res) => {
             const description = templateUser.description;
             const groups = templateUser.groups.map(groupArray => groupArray.cn);
 
-            //create newUser object
+            //create newUser object for AD
 
             const newUser = {
                 cn: commonName,
@@ -73,11 +73,29 @@ module.exports.createNewUser = (req, res) => {
                 description
             }
 
+            // Async to add user to groups
+
             async function iterateOverGroups(groups) {
                 for (let group of groups) {
                     await ad.user(newUser.sAMAccountName).addToGroup(group)
                 }
             };
+
+            // Object to pass to the Success page
+
+            const newUserFullDetails = {
+                firstName,
+                lastName,
+                email,
+                office,
+                jobTitle,
+                distinguishedName,
+                commonName,
+                groups,
+                description
+            };
+
+            req.session.newUser = newUserFullDetails;
 
             const userExists = await ad.user(userName).exists();
 
@@ -123,6 +141,7 @@ module.exports.createNewUser = (req, res) => {
 }
 
 module.exports.success = (req, res) => {
+    newUser = req.session.newUser;
     res.render('create/success');
 }
 
