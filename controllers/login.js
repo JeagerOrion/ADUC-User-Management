@@ -39,7 +39,7 @@ module.exports.logout = (req, res) => {
     userLoggingOff = req.session.user_id;
     req.session.user_id = undefined;
     console.log(`${userLoggingOff} has logged off`)
-    return res.redirect('login/login');
+    return res.redirect('/');
 }
 
 module.exports.homePage = (req, res) => {

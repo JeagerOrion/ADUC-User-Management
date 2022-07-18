@@ -1,53 +1,52 @@
 <% layout('layouts/boilerplate') %>
 
     <div class="container vh-100">
-        <div class="row align-items-center">
-            <div class="border rounded border-dark p-4">
-                <div class="text-center mb-4 border-bottom border-dark">
-                    <h1 class="h1">Success! An account has been created for <%= newUser.commonName %>
-                    </h1>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="mb-3">
-
-                            <h5><u>Department:</u>
-                                <%= newUser.office %>
-                            </h5>
+        <div class="d-flex justify-content-center align-items-center min-vh-100" style="max-width: 100%;">
+            <div class="row justify-content-center">
+                <div class="col-8 border rounded border-dark p-4 mb-4">
+                    <div class="text-center mb-4 border-bottom border-dark">
+                        <h1 class="h1">Success! An account has been created for <%= newUser.commonName %>
+                        </h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <h5><u>Department:</u>
+                                    <%= newUser.office %>
+                                </h5>
+                            </div>
+                            <div class="mb-3">
+                                <h5>
+                                    <u>Job Title:</u>
+                                    <%= newUser.description %>
+                                </h5>
+                            </div>
+                            <div class="mb-3">
+                                <h5>
+                                    <u>Email Address:</u>
+                                    <%= newUser.email %>
+                                </h5>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <h5>
-                                <u>Job Title:</u>
-                                <%= newUser.description %>
-                            </h5>
-                        </div>
-                        <div class="mb-3">
-                            <h5>
-                                <u>Email Address:</u>
-                                <%= newUser.email %>
-                            </h5>
+                        <div class="col-6">
+                            <div class="row text-center">
+                                <h4><u>Email Groups:</u></h4>
+                            </div>
+                            <div class="col-4">
+                                <ul>
+                                    <% for (let group of newUser.groups) { %>
+                                        <li>
+                                            <%= group %>
+                                        </li>
+                                        <% } %>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="row">
-                            <h4><u>Email Groups:</u></h4>
-                        </div>
-                        <div class="col-4 offset-3">
-                            <ul>
-                                <% for (let group of newUser.groups) { %>
-                                    <li>
-                                        <%= group %>
-                                    </li>
-                                    <% } %>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <a href="/create" class="btn btn-primary">Create Another User</a>
+                <div class="text-center">
+                    <a href="/create" class="btn btn-primary">Create Another User</a>
+                </div>
             </div>
         </div>
     </div>

@@ -27,7 +27,7 @@ ldapClient.on('error', function (err) {
 
 
 module.exports.renderNewUserForm = (req, res) => {
-    res.render('create/create')
+    res.render('create/create', { error: false })
 }
 
 module.exports.createNewUser = (req, res) => {
