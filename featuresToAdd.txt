@@ -1,10 +1,7 @@
-Create templates for regional office accounts
-Intelligent Office/job title drop downs
-
-Pass user details to success page
 Verify account before disabling
 
 Error handling
+Redirect to lastPage on login
 
 Disable user sync with Google
 Create user sync with eReach
