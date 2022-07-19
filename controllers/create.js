@@ -146,7 +146,8 @@ module.exports.success = (req, res) => {
 }
 
 module.exports.duplicate = (req, res) => {
-    res.render('create/duplicate');
+    const duplicateUser = req.session.newUser;
+    res.render('create/duplicate', { duplicateUser });
 }
 
 module.exports.renderDisableForm = (req, res) => {
@@ -156,14 +157,17 @@ module.exports.renderDisableForm = (req, res) => {
 module.exports.disableUserAccount = (req, res) => {
     ldapClient.bind(domainUser, domainUserPassword, async (err) => {
         if (err) console.log(err);
-        const { userName } = req.body.disable;
+        const { sAMAccountName } = req.session.userToDisable;
         try {
-            accountToDisable = await ad.user(userName).get();
-            const successfullyDisabled = await ad.user(userName).disable();
-            req.session.disabledUser = accountToDisable;
-            return res.redirect('accountDisabled')
+            if (req.body.disable.cn === req.session.userToDisable.cn) {
+                accountToDisable = await ad.user(sAMAccountName).get();
+                const successfullyDisabled = await ad.user(sAMAccountName).disable();
+                req.session.disabledAccount = accountToDisable;
+                ldapClient.unbind();
+                return res.redirect('accountDisabled')
+            }
         } catch (err) {
-            console.log(`Unable to disable user ${userName}`)
+            console.log(`Unable to disable user ${sAMAccountName}`)
             console.log(err);
             return res.send('Something went wrong disabling the account')
         }
@@ -176,17 +180,24 @@ module.exports.confirmDisableUserAccount = (req, res) => {
         const { userName } = req.body.disable;
         try {
             const userToDisable = await ad.user(userName).get();
-            console.log(userToDisable);
-            res.render('confirmDisable', userToDisable)
+            req.session.userToDisable = userToDisable;
+            ldapClient.unbind();
+            return res.redirect('confirmDisable')
         } catch (err) {
             console.log(`Unable to find user ${userName}`)
             console.log(err);
+            ldapClient.unbind();
             return res.redirect('disable')
         }
-        return res.redirect('disable')
     })
 }
 
+module.exports.renderConfirmDisable = (req, res) => {
+    const userToDisable = req.session.userToDisable;
+    res.render('create/confirmDisable', { userToDisable })
+}
+
 module.exports.accountDisabled = (req, res) => {
-    res.render('create/accountDisabled');
+    const disabledAccount = req.session.disabledAccount;
+    res.render('create/accountDisabled', { disabledAccount });
 }

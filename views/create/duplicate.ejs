@@ -1,4 +1,59 @@
 <% layout('layouts/boilerplate') %>
 
-    <div class="row d-flex text-center justify-content-center mt-5" style="max-width: 100%;">
-        <h1 class="h1">That user already exists! </h1>
+    <div class="container d-flex justify-content-center">
+        <div class="mt-5 col-8" style="max-width: 100%;">
+            <div class="row mb-3">
+                <h1 class="h1 border-bottom border-dark text-center">An account for <%= duplicateUser.commonName %>
+                        already exists
+                </h1>
+            </div>
+            <div class="row d-flex mb-4">
+                <div class="col-6 text-center">
+                    <div class="mb-3">
+                        <h5><u>Department:</u></h5>
+                        <p>
+                            <%= duplicateUser.office %>
+                        </p>
+
+                    </div>
+                    <div class="mb-3">
+                        <h5>
+                            <u>Job Title:</u>
+                        </h5>
+                        <p>
+                            <%= duplicateUser.description %>
+                        </p>
+
+                    </div>
+                    <div class="mb-3">
+                        <h5>
+                            <u>Email Address:</u>
+                        </h5>
+                        <p>
+                            <%= duplicateUser.email %>
+                        </p>
+
+                    </div>
+                </div>
+                <div class="col-6 justify-content-center">
+                    <div class="">
+                        <h4><u>Email Groups:</u></h4>
+                    </div>
+                    <div class="">
+                        <ul>
+                            <% for (let group of duplicateUser.groups) { %>
+                                <li>
+                                    <%= group %>
+                                </li>
+                                <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="/" class="btn btn-primary p-2">Return Home</a>
+                <a href="/create" class="btn btn-success p-2">Create an Account</a>
+                <a href="/create/disable" class="btn btn-warning p-2">Disable an Account</a>
+            </div>
+        </div>
+    </div>
