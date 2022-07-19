@@ -158,14 +158,15 @@ module.exports.disableUserAccount = (req, res) => {
         if (err) console.log(err);
         const { userName } = req.body.disable;
         try {
-            const disabledUser = await ad.user(userName).disable();
-            console.log(disabledUser);
+            accountToDisable = await ad.user(userName).get();
+            const successfullyDisabled = await ad.user(userName).disable();
+            req.session.disabledUser = accountToDisable;
+            return res.redirect('accountDisabled')
         } catch (err) {
             console.log(`Unable to disable user ${userName}`)
             console.log(err);
-            return res.redirect('disable')
+            return res.send('Something went wrong disabling the account')
         }
-        return res.redirect('disable')
     })
 }
 
@@ -184,4 +185,8 @@ module.exports.confirmDisableUserAccount = (req, res) => {
         }
         return res.redirect('disable')
     })
+}
+
+module.exports.accountDisabled = (req, res) => {
+    res.render('create/accountDisabled');
 }

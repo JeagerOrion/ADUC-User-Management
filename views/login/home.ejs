@@ -1,12 +1,17 @@
 <% layout('layouts/boilerplate') %>
 
-    <div class="row d-flex justify-content-center" style="max-width: 100%;">
-        <div class="border rounded border-dark col-2 p-3 mt-5">
-            <div class="row col-6 mx-auto mb-4">
-                <a href="/create" class="btn btn-primary">Create a New User</a>
+    <div class="container d-flex justify-content-center align-items-center" style="max-width: 100%; height: 75vh;">
+        <div class="row border rounded border-dark col-4 p-3 mt-5">
+            <div class="row border-bottom border-dark mb-3">
+                <h1 class="text-center">Josiah White's User Account Management</h1>
             </div>
-            <div class="row col-6 mx-auto mb-4">
-                <a href="/create/disable" class="btn btn-primary">Disable a User Account</a>
+            <div class="row text-center">
+                <div class="col-6">
+                    <a href="/create" class="btn btn-primary p-3">Create a New User</a>
+                </div>
+                <div class="col-6">
+                    <a href="/create/disable" class="btn btn-primary p-3">Disable a User Account</a>
+                </div>
             </div>
         </div>
     </div>
