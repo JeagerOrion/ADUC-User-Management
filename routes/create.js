@@ -6,22 +6,22 @@ const { isLoggedIn } = require('../middleware');
 // isLoggedIn, 
 
 router.route('/')
-    .get(create.renderNewUserForm)
-    .post(create.createNewUser)
+    .get(isLoggedIn, create.renderNewUserForm)
+    .post(isLoggedIn, create.createNewUser)
 
-router.get('/success', create.success);
+router.get('/success', isLoggedIn, create.success);
 
-router.get('/duplicate', create.duplicate);
+router.get('/duplicate', isLoggedIn, create.duplicate);
 
 router.route('/disable')
-    .get(create.renderDisableForm)
-    .post(create.disableUserAccount)
+    .get(isLoggedIn, create.renderDisableForm)
+    .post(isLoggedIn, create.disableUserAccount)
 
-router.get('/accountDisabled', create.accountDisabled)
+router.get('/accountDisabled', isLoggedIn, create.accountDisabled)
 
 router.route('/confirmDisable')
-    .get(create.renderConfirmDisable)
-    .post(create.confirmDisableUserAccount)
+    .get(isLoggedIn, create.renderConfirmDisable)
+    .post(isLoggedIn, create.confirmDisableUserAccount)
 
 
 module.exports = router;

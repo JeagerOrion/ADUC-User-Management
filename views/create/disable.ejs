@@ -6,12 +6,12 @@
             <div class="row text-center mb-4 border-bottom border-dark">
                 <h1 class="h1">Disable a User Account</h1>
             </div>
-            <form action="/create/confirmDisable" method="POST">
+            <form action="/create/confirmDisable" class="validatedForm" method="POST" novalidate>
                 <div class="row mb-3">
                     <div class="col mx-auto">
                         <label for="userName" class="form-label">Username:</label>
                         <input type="text" placeholder="Username" name="disable[userName]" id="userName"
-                            class="form-control">
+                            class="form-control" required>
                     </div>
                 </div>
                 <div class="row">

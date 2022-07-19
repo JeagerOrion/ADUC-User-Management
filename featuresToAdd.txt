@@ -1,9 +1,8 @@
-User already exists page
+Not authorized page
 Flash
-Client side validation
+loading gif
 
 Error handling
-Redirect to lastPage on login
 
 Disable user sync with Google
 Create user sync with eReach

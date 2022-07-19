@@ -1,13 +1,29 @@
-const ActiveDirectory = require('activedirectory');
-const activeDirectoryConfig = {
-    url: process.env.DOMAIN_URL,
-    baseDN: process.env.DOMAIN_BASE_DN,
-    // username: process.env.ADMIN,
-    bindDN: process.env.DOMAIN_BIND_DN,
-    password: process.env.DOMAIN_USER_PASSWORD
+const AD = require('ad');
+const ldapJs = require('ldapjs');
+
+const domainUrl = process.env.DOMAIN_URL;
+const domainUser = process.env.DOMAIN_USER;
+const domainUserPassword = process.env.DOMAIN_USER_PASSWORD;
+const domainBaseDN = process.env.DOMAIN_BASE_DN;
+
+const ad = new AD({
+    url: domainUrl,
+    user: domainUser,
+    pass: domainUserPassword,
+    baseDN: domainBaseDN
+});
+
+const ldapConfig = {
+    url: domainUrl,
+    connectionTimeOut: 30000,
+    reconnect: true
 }
 
-const ad = new ActiveDirectory(activeDirectoryConfig);
+const ldapClient = ldapJs.createClient(ldapConfig);
+
+ldapClient.on('error', function (err) {
+    console.log(err);
+})
 
 const groupName = process.env.AUTHORIZED_AD_GROUP;
 
@@ -15,24 +31,40 @@ module.exports.renderLoginForm = (req, res) => {
     res.render('login/login')
 }
 
-module.exports.authenticate = (req, res) => {
+module.exports.authenticate = async (req, res) => {
     const { username, password } = req.body.login;
     appendedUsername = username + '@whitesrfs.org';
-    ad.isUserMemberOf(appendedUsername, groupName, function (err, isMember) {
-        if (err) {
+    const isMember = await ad.user(username).isMemberOf('ITDEPT');
+    if (isMember === true) {
+        try {
+            const isAuthenticated = await ad.user(username).authenticate(password);
+            if (isAuthenticated === true) {
+                try {
+                    console.log(`User: ${username} has logged in`);
+                    req.session.user_id = username;
+                    const redirectUrl = req.session.returnTo || 'home';
+                    return res.redirect(redirectUrl);
+                }
+                catch (err) {
+                    console.log(err)
+                }
+            }
+            if (isAuthenticated === false) {
+                console.log(`Failed sign in attempt for ${username}`)
+                req.flash('error', 'Incorrect username or password')
+                return res.redirect('/',)
+            }
+        }
+        catch (err) {
+            console.log('isTrue catch')
             console.log(err);
-            console.log(appendedUsername + ' isMemberOf ' + groupName + ': ' + isMember);
-            return res.send('Something went wrong with group authentication');
+            return res.send(err);
         }
-        if (isMember === true) {
-            console.log(`User: ${username} has logged in`);
-            req.session.user_id = username;
-            return res.redirect('home');
-        }
-        if (isMember === false) {
-            return res.send('You are not authorized to use this system.')
-        }
-    })
+    }
+    if (isMember === false) {
+        console.log(`Unauthorized access attempt for ${username}`)
+        return res.send('You are not authorized to use this system.')
+    }
 }
 
 module.exports.logout = (req, res) => {

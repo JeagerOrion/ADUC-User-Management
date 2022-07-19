@@ -7,15 +7,15 @@
                 <h1 class="h1">Create a New User Account</h1>
             </div>
 
-            <form action="/create" method="post">
+            <form action="/create" class="validatedForm" method="post" novalidate>
                 <div class="row mb-3">
                     <div class="col mx-auto mb-3">
                         <label class="form-label" for="firstName">First Name:</label>
-                        <input class="form-control" type="text" id="firstName" name="newUser[firstName]">
+                        <input class="form-control" type="text" id="firstName" name="newUser[firstName]" required>
                     </div>
                     <div class="col mx-auto">
                         <label class="form-label" for="lastName">Last Name:</label>
-                        <input class="form-control" type="text" id="lastName" name="newUser[lastName]">
+                        <input class="form-control" type="text" id="lastName" name="newUser[lastName]" required>
                     </div>
                     <div class="col mx-auto">
                         <label for="emailDomain" class="form-label">Email Domain:</label>
@@ -27,8 +27,8 @@
                     <div class="row mb-3">
                         <div class="col mx-auto">
                             <label for="office" class="form-label">Office:</label>
-                            <select id="office" name="newUser[office]" class="form-select">
-                                <option selected value="undefined">---</option>
+                            <select id="office" name="newUser[office]" class="form-select" required>
+                                <option selected disabled value="">---</option>
                                 <option value="Compass Rose Academy">Compass Rose</option>
                                 <option value="Crown Point">Crown Point</option>
                                 <option value="Fort Wayne">Fort Wayne</option>
@@ -42,8 +42,8 @@
                         </div>
                         <div class="col mx-auto">
                             <label for="jobTitle" class="form-label">Job Title:</label>
-                            <select id="jobTitle" name="newUser[jobTitle]" class="form-select">
-                                '<option value="undefined">Please Select an Office</option>'
+                            <select id="jobTitle" name="newUser[jobTitle]" class="form-select" required>
+                                '<option selected disabled value="">Please Select an Office</option>'
                                 <!-- <option value="cm.template">Case Manager</option>
                                 <option value="crarft.template">Compass Rose Family Teacher</option>
                                 <option value="crteach.template">Compass Rose School Teacher</option>
