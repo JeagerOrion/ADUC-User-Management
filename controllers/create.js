@@ -1,10 +1,25 @@
 const AD = require('ad');
 const ldapJs = require('ldapjs');
+const nodemailer = require('nodemailer');
 
 const domainUrl = process.env.DOMAIN_URL;
 const domainUser = process.env.DOMAIN_USER;
 const domainUserPassword = process.env.DOMAIN_USER_PASSWORD;
 const domainBaseDN = process.env.DOMAIN_BASE_DN;
+const smtpHost = process.env.SMTP_HOST;
+const smtpUser = process.env.SMTP_USER;
+const smtpUserPassword = process.env.SMTP_USER_PASSWORD;
+const emailConfirmationGroup = process.env.EMAIL_CONFIRMATION_GROUP;
+const emailSecurityGroup = process.env.EMAIL_SECURITY_GROUP;
+const emailTechnologyGroup = process.env.EMAIL_TECHNOLOGY_GROUP;
+
+let message = {
+    from: '"User Account Management System" <useraccountmanagement@whitesrfs.org>',
+    to: emailConfirmationGroup,
+    subject: ``,
+    text: ``,
+    html: ``
+}
 
 const ad = new AD({
     url: domainUrl,
@@ -25,6 +40,25 @@ ldapClient.on('error', function (err) {
     console.log(err);
 })
 
+const smtpConfig = {
+    host: smtpHost,
+    port: 25,
+    secure: false,
+    auth: {
+        user: smtpUser,
+        pass: smtpUserPassword
+    }
+}
+
+async function sendMail(message) {
+    try {
+        let transporter = nodemailer.createTransport(smtpConfig);
+        let info = await transporter.sendMail(message);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
 
 module.exports.renderNewUserForm = (req, res) => {
     res.render('create/create', { error: false })
@@ -120,6 +154,15 @@ module.exports.createNewUser = (req, res) => {
                             .then((result) => {
                                 ldapClient.unbind();
                                 console.log('Unbind complete');
+                                currentUser = req.session.user_id;
+                                message = {
+                                    from: '"User Account Management System" <useraccountmanagement@whitesrfs.org>',
+                                    to: emailConfirmationGroup,
+                                    subject: `An account has been created for ${newUser.cn}`,
+                                    text: `An account has successfully been created for ${newUser.cn}. Created by ${currentUser}`,
+                                    html: ``
+                                }
+                                sendMail(message);
                                 return res.redirect('create/success')
                             })
                             .catch((err) => {

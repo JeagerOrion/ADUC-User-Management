@@ -11,4 +11,6 @@ router.get('/home', isLoggedIn, login.homePage);
 
 router.post('/logout', isLoggedIn, login.logout);
 
+router.get('/unauthorized', login.unauthorizedPage);
+
 module.exports = router

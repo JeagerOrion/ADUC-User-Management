@@ -5,6 +5,7 @@ const domainUrl = process.env.DOMAIN_URL;
 const domainUser = process.env.DOMAIN_USER;
 const domainUserPassword = process.env.DOMAIN_USER_PASSWORD;
 const domainBaseDN = process.env.DOMAIN_BASE_DN;
+const authorizedAccessGroup = process.env.AUTHORIZED_AD_GROUP;
 
 const ad = new AD({
     url: domainUrl,
@@ -25,7 +26,7 @@ ldapClient.on('error', function (err) {
     console.log(err);
 })
 
-const groupName = process.env.AUTHORIZED_AD_GROUP;
+
 
 module.exports.renderLoginForm = (req, res) => {
     res.render('login/login')
@@ -34,7 +35,7 @@ module.exports.renderLoginForm = (req, res) => {
 module.exports.authenticate = async (req, res) => {
     const { username, password } = req.body.login;
     appendedUsername = username + '@whitesrfs.org';
-    const isMember = await ad.user(username).isMemberOf('ITDEPT');
+    const isMember = await ad.user(username).isMemberOf(authorizedAccessGroup);
     if (isMember === true) {
         try {
             const isAuthenticated = await ad.user(username).authenticate(password);
@@ -62,18 +63,22 @@ module.exports.authenticate = async (req, res) => {
         }
     }
     if (isMember === false) {
-        console.log(`Unauthorized access attempt for ${username}`)
-        return res.send('You are not authorized to use this system.')
+        console.log(`Unauthorized access attempt from ${username}`)
+        return res.render('login/unauthorized')
     }
 }
 
 module.exports.logout = (req, res) => {
-    userLoggingOff = req.session.user_id;
+    userLoggingOut = req.session.user_id;
     req.session.user_id = undefined;
-    console.log(`${userLoggingOff} has logged off`)
+    console.log(`${userLoggingOut} has logged out`)
     return res.redirect('/');
 }
 
 module.exports.homePage = (req, res) => {
     res.render('login/home')
+}
+
+module.exports.unauthorizedPage = (req, res) => {
+    res.render('login/unauthorized');
 }

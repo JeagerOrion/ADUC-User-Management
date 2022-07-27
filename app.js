@@ -1,6 +1,13 @@
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
+// console.log tracker
+// const log = console.log;
+// console.log = function () {
+//     log.apply(console, arguments);
+//     // Print the stack trace
+//     console.trace();
+// };
 
 const https = require('https');
 const fs = require('fs');

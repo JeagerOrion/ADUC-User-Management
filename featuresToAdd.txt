@@ -1,6 +1,7 @@
-Not authorized page
 Flash
 loading gif
+Enable duplicate accounts
+    OAuth 2.0 Google API to reactivate suspended Google accounts
 
 Error handling
 
