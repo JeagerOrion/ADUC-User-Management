@@ -15,3 +15,21 @@ SMTP/email service for:
 
 Server logging - sign ins and user activity with timestamps
 
+DOMAIN_USER=Administrator@whitesrfs.org
+DOMAIN_USER_PASSWORD=whiteswind0m
+DOMAIN_URL=ldaps://vwaynedc.whitesrfs.loc
+DOMAIN_LDAP_IP=ldap://172.16.0.3
+DOMAIN_BASE_DN=dc=whitesrfs,dc=loc
+DOMAIN_PREFIX=WHITESRFS\\
+DOMAIN_BIND_DN=CN=Administrator,CN=Users,DC=whitesrfs,DC=loc
+SECRET=Tools4development
+AUTHORIZED_AD_GROUP=UserAccountManagementSite
+NEW_USER_PASSWORD=BrandNewUserPasswordLDAP
+CERTIFICATE_PASSPHRASE=Access2cert
+NODE_TLS_REJECT_UNAUTHORIZED=0
+SMTP_HOST=172.16.0.85
+SMTP_USER=usermanagementsystem@whitesrfs.org
+SMTP_USER_PASSWORD=Tools4whites
+EMAIL_CONFIRMATION_GROUP=andy.reid@whitesrfs.org
+EMAIL_SECURITY_GROUP=itdept@whitesrfs.org
+EMAIL_TECHNOLOGY_GROUP=itdept@whitesrfs.org
