@@ -41,7 +41,10 @@ module.exports.authenticate = async (req, res) => {
             const isAuthenticated = await ad.user(username).authenticate(password);
             if (isAuthenticated === true) {
                 try {
-                    console.log(`User: ${username} has logged in`);
+                    const authorFullDetails = await ad.user(username).get();
+                    const authorCommonName = authorFullDetails.cn;
+                    req.session.authorFullDetails = authorFullDetails;
+                    console.log(`User: ${authorCommonName} has logged in`);
                     req.session.user_id = username;
                     const redirectUrl = req.session.returnTo || 'home';
                     return res.redirect(redirectUrl);

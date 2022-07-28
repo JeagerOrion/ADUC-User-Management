@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <div>
+            <h1>An account has successfully been created for <%= newUserFullDetails.commonName %>. Created by
+                    <%= newUserFullDetails.author %>
+            </h1>
+        </div>
+        <hr>
+        <div>
+            <div>
+                <ul>
+                    <li>
+                        <h2>
+                            <u>Department:</u>
+                            <%= newUserFullDetails.office %>
+                        </h2>
+                    </li>
+                    <li>
+                        <h2>
+                            <u>Job Title:</u>
+                            <%= newUserFullDetails.description %>
+                        </h2>
+                    </li>
+                    <li>
+                        <h2>
+                            <u>Email Address:</u>
+                            <%= newUserFullDetails.email %>
+                        </h2>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <u>
+                    <h2>Email Groups:</h2>
+                </u>
+                <ul>
+                    <% for (group of newUserFullDetails.groups) { %>
+                        <li>
+                            <%= group %>
+                        </li>
+                        <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+
+<!-- const newUserFullDetails = {
+        firstName,
+        lastName,
+        email,
+        office,
+        jobTitle,
+        distinguishedName,
+        commonName,
+        groups,
+        description
+    }; -->

@@ -48,6 +48,7 @@ app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
     res.locals.user_id = req.session.user_id;
+    res.locals.authorFullDetails = req.session.authorFullDetails
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();

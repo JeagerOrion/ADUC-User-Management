@@ -23,5 +23,8 @@ router.route('/confirmDisable')
     .get(isLoggedIn, create.renderConfirmDisable)
     .post(isLoggedIn, create.confirmDisableUserAccount)
 
+router.route('/technologyRequest')
+    .get(isLoggedIn, create.renderTechnologyRequestForm)
+
 
 module.exports = router;

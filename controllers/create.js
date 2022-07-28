@@ -1,6 +1,7 @@
 const AD = require('ad');
 const ldapJs = require('ldapjs');
 const nodemailer = require('nodemailer');
+const ejs = require('ejs');
 
 const domainUrl = process.env.DOMAIN_URL;
 const domainUser = process.env.DOMAIN_USER;
@@ -58,6 +59,13 @@ async function sendMail(message) {
     catch (err) {
         console.log(err);
     }
+}
+
+async function getEmailTemplate(path, data) {
+    try {
+        console.log(path, data);
+        await ejs.renderFile(path, data);
+    } catch (err) { console.log('-----Failed to get email template-----', err) }
 }
 
 module.exports.renderNewUserForm = (req, res) => {
@@ -151,19 +159,27 @@ module.exports.createNewUser = (req, res) => {
                         // Add user to groups
                         console.log(groups);
                         iterateOverGroups(groups)
-                            .then((result) => {
+                            .then(async (result) => {
                                 ldapClient.unbind();
                                 console.log('Unbind complete');
-                                currentUser = req.session.user_id;
-                                message = {
-                                    from: '"User Account Management System" <useraccountmanagement@whitesrfs.org>',
-                                    to: emailConfirmationGroup,
-                                    subject: `An account has been created for ${newUser.cn}`,
-                                    text: `An account has successfully been created for ${newUser.cn}. Created by ${currentUser}`,
-                                    html: ``
-                                }
-                                sendMail(message);
-                                return res.redirect('create/success')
+                                // Generate email notification
+                                const successTemplate = 'views/emailTemplates/success.ejs'
+                                newUserFullDetails.author = req.session.user_id;
+                                req.session.newUserFullDetails = newUserFullDetails;
+                                await ejs.renderFile(successTemplate, { newUserFullDetails }, async (err, html) => {
+                                    currentUser = req.session.user_id;
+                                    console.log(html);
+                                    message = {
+                                        from: '"User Account Management System" <useraccountmanagement@whitesrfs.org>',
+                                        to: emailConfirmationGroup,
+                                        subject: `An account has been created for ${newUser.cn}`,
+                                        text: `An account has successfully been created for ${newUser.cn}. Created by ${currentUser}`,
+                                        html
+                                    }
+                                    sendMail(message);
+                                    return res.redirect('create/success')
+                                })
+
                             })
                             .catch((err) => {
                                 console.log(err)
@@ -243,4 +259,9 @@ module.exports.renderConfirmDisable = (req, res) => {
 module.exports.accountDisabled = (req, res) => {
     const disabledAccount = req.session.disabledAccount;
     res.render('create/accountDisabled', { disabledAccount });
+}
+
+module.exports.renderTechnologyRequestForm = (req, res) => {
+    newUserFullDetails = req.session.newUserFullDetails || { cn: 'Example User' };
+    res.render('create/technologyRequest', { newUserFullDetails });
 }
