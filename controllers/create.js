@@ -164,6 +164,7 @@ module.exports.createNewUser = (req, res) => {
                                 const successTemplate = 'views/emailTemplates/success.ejs'
                                 newUserFullDetails.author = req.session.authorFullDetails;
                                 req.session.newUserFullDetails = newUserFullDetails;
+                                console.log(newUserFullDetails);
                                 await ejs.renderFile(successTemplate, { newUserFullDetails }, async (err, html) => {
                                     currentUser = newUserFullDetails.author.cn;
                                     message = {
