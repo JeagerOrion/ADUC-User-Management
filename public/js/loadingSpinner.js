@@ -15,23 +15,24 @@ const invalidate = function (e) {
     e.preventDefault();
 }
 
-console.log('invalid precheck is ' + isValid)
-
-inputFirstName.addEventListener('invalid', invalidate)
-
-inputEmailDomain.addEventListener('invalid', invalidate)
-
-inputOffice.addEventListener('invalid', invalidate)
-
-inputJobTitle.addEventListener('invalid', invalidate)
-
-inputSupervisorEmail.addEventListener('invalid', invalidate)
-
 form.addEventListener('submit', function (e) {
 
+    isValid = true
+
+    console.log('invalid precheck is ' + isValid)
+
+    inputFirstName.addEventListener('invalid', invalidate)
+
+    inputEmailDomain.addEventListener('invalid', invalidate)
+
+    inputOffice.addEventListener('invalid', invalidate)
+
+    inputJobTitle.addEventListener('invalid', invalidate)
+
+    inputSupervisorEmail.addEventListener('invalid', invalidate)
 
 
-    console.log('isValid is ' + isValid);
+    console.log('isValid postcheck is ' + isValid);
 
     if (isValid) {
         submitButton.disabled = true;
