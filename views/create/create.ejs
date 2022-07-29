@@ -7,7 +7,7 @@
                 <h1 class="h1">Create a New User Account</h1>
             </div>
 
-            <form action="/create" class="validatedForm" method="post" novalidate>
+            <form action="/create" class="validatedForm" method="post" id="form" novalidate>
                 <div class="row mb-3">
                     <div class="col mx-auto mb-3">
                         <label class="form-label" for="firstName">First Name:</label>
@@ -61,10 +61,11 @@
                     </div>
                 </div>
                 <div class="mb-3 row col-3 mx-auto">
-                    <button class="btn btn-success">Submit</button>
+                    <button class="btn btn-success" id="submit">Submit</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script src="/js/populateMenus.js"></script>
+    <script src="/js/loadingSpinner.js"></script>

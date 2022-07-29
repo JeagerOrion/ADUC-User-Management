@@ -238,7 +238,10 @@ module.exports.confirmDisableUserAccount = (req, res) => {
         if (err) console.log(err);
         const { userName } = req.body.disable;
         try {
+            const userExists = await ad.user(userName).exists();
+            if (!userExists) { throw `${userName} does not exist` };
             const userToDisable = await ad.user(userName).get();
+            console.log(userToDisable);
             req.session.userToDisable = userToDisable;
             ldapClient.unbind();
             return res.redirect('confirmDisable')
@@ -262,6 +265,7 @@ module.exports.accountDisabled = (req, res) => {
 }
 
 module.exports.renderTechnologyRequestForm = (req, res) => {
-    newUserFullDetails = req.session.newUserFullDetails || { cn: 'Example User' };
+    newUserFullDetails = req.session.newUserFullDetails || { commonName: 'Example User' };
+    console.log(newUserFullDetails);
     res.render('create/technologyRequest', { newUserFullDetails });
 }

@@ -6,7 +6,7 @@
             <div class="row text-center mb-4 border-bottom border-dark">
                 <h1 class="h1">Disable a User Account</h1>
             </div>
-            <form action="/create/confirmDisable" class="validatedForm" method="POST" novalidate>
+            <form action="/create/confirmDisable" id="form" class="validatedForm" method="POST" novalidate>
                 <div class="row mb-3">
                     <div class="col mx-auto">
                         <label for="userName" class="form-label">Username:</label>
@@ -16,9 +16,11 @@
                 </div>
                 <div class="row">
                     <div class="mb-3 col-3 mx-auto">
-                        <button class="btn btn-danger">Disable User</button>
+                        <button class="btn btn-danger" id="submit">Disable User</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
+    <script src="/js/loadingSpinner.js"></script>

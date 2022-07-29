@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <form action="/create/disable" method="POST">
+            <form action="/create/disable" method="POST" id="form">
                 <div class="row mb-3">
                     <div class="mb-3">
                         <h5>Please type the user's first and last name to disable the account</h3>
@@ -51,8 +51,8 @@
                 </div>
                 <div class="row">
                     <div class="mb-3 col-4 mx-auto">
-                        <button id="disableUserButton" class="btn btn-danger" disabled>Disable <%=
-                                userToDisable.sAMAccountName %> </button>
+                        <button id="submit" class="btn btn-danger" disabled>Disable <%= userToDisable.sAMAccountName %>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -60,4 +60,5 @@
     </div>
 
     <script>const userToDisable = '<%= userToDisable.cn %>'</script>
-    <script src="/js/confirmDelete.js"></script>
+    <script src="/js/confirmDisable.js"></script>
+    <script src="/js/loadingSpinner.js"></script>
