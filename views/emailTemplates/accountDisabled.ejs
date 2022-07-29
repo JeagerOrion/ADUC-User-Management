@@ -11,30 +11,31 @@
 <body>
     <div>
         <div>
-            <h1 style="color: #1bc44b;">An account has successfully been created for <span style="color: #00A8F9">
-                    <%= newUserFullDetails.commonName %>
-                </span> - Created by
-                <%= newUserFullDetails.author.cn %>
+            <h1 style="color: #b80600;">
+                <span style="color: #00A8F9">
+                    <%= accountToDisable.sAMAccountName %>
+                </span> has been disabled by
+                <%= accountToDisable.author.cn %>
             </h1>
         </div>
         <hr>
         <div>
             <div>
                 <h2>
-                    <u>Department:</u>
-                    <%= newUserFullDetails.office %>
+                    <u>Full Name:</u>
+                    <%= accountToDisable.cn %>
                 </h2>
             </div>
             <div>
                 <h2>
                     <u>Job Title:</u>
-                    <%= newUserFullDetails.description %>
+                    <%= accountToDisable.description %>
                 </h2>
             </div>
             <div>
                 <h2>
                     <u>Email Address:</u>
-                    <%= newUserFullDetails.email %>
+                    <%= accountToDisable.mail %>
                 </h2>
             </div>
             <div>
@@ -42,7 +43,7 @@
                     <h2>Email Groups:</h2>
                 </u>
                 <ul>
-                    <% for (group of newUserFullDetails.groups) { %>
+                    <% for (group of accountToDisable.groups) { %>
                         <li>
                             <%= group.cn %>
                         </li>
@@ -55,16 +56,3 @@
 </body>
 
 </html>
-
-
-<!-- const newUserFullDetails = {
-        firstName,
-        lastName,
-        email,
-        office,
-        jobTitle,
-        distinguishedName,
-        commonName,
-        groups,
-        description
-    }; -->

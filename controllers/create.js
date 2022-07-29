@@ -154,21 +154,18 @@ module.exports.createNewUser = (req, res) => {
                         //After successsful user creation
 
                         console.log('Successfully created new user', newUser)
-                        console.log(newUser.sAMAccountName);
 
                         // Add user to groups
-                        console.log(groups);
                         iterateOverGroups(groups)
                             .then(async (result) => {
                                 ldapClient.unbind();
                                 console.log('Unbind complete');
                                 // Generate email notification
                                 const successTemplate = 'views/emailTemplates/success.ejs'
-                                newUserFullDetails.author = req.session.user_id;
+                                newUserFullDetails.author = req.session.authorFullDetails;
                                 req.session.newUserFullDetails = newUserFullDetails;
                                 await ejs.renderFile(successTemplate, { newUserFullDetails }, async (err, html) => {
-                                    currentUser = req.session.user_id;
-                                    console.log(html);
+                                    currentUser = newUserFullDetails.author.cn;
                                     message = {
                                         from: '"User Account Management System" <useraccountmanagement@whitesrfs.org>',
                                         to: emailConfirmationGroup,
@@ -213,7 +210,7 @@ module.exports.renderDisableForm = (req, res) => {
     res.render('create/disable');
 }
 
-module.exports.disableUserAccount = (req, res) => {
+module.exports.disableUserAccount = async (req, res) => {
     ldapClient.bind(domainUser, domainUserPassword, async (err) => {
         if (err) console.log(err);
         const { sAMAccountName } = req.session.userToDisable;
@@ -221,9 +218,25 @@ module.exports.disableUserAccount = (req, res) => {
             if (req.body.disable.cn === req.session.userToDisable.cn) {
                 accountToDisable = await ad.user(sAMAccountName).get();
                 const successfullyDisabled = await ad.user(sAMAccountName).disable();
-                req.session.disabledAccount = accountToDisable;
                 ldapClient.unbind();
-                return res.redirect('accountDisabled')
+
+                // Generate email notification 
+
+                const disabledTemplate = 'views/emailTemplates/accountDisabled.ejs';
+                accountToDisable.author = req.session.authorFullDetails;
+                req.session.disabledAccount = accountToDisable;
+
+                await ejs.renderFile(disabledTemplate, { accountToDisable }, async (err, html) => {
+                    message = {
+                        from: '"User Account Management System" <useraccountmanagement@whitesrfs.org>',
+                        to: emailConfirmationGroup,
+                        subject: `${accountToDisable.sAMAccountName} has been disabled`,
+                        text: `The account for ${accountToDisable.sAMAccountName} has been disabled by ${accountToDisable.author.cn}`,
+                        html
+                    }
+                    sendMail(message);
+                    return res.redirect('accountDisabled')
+                })
             }
         } catch (err) {
             console.log(`Unable to disable user ${sAMAccountName}`)
@@ -266,6 +279,5 @@ module.exports.accountDisabled = (req, res) => {
 
 module.exports.renderTechnologyRequestForm = (req, res) => {
     newUserFullDetails = req.session.newUserFullDetails || { commonName: 'Example User' };
-    console.log(newUserFullDetails);
     res.render('create/technologyRequest', { newUserFullDetails });
 }
