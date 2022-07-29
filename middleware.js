@@ -19,3 +19,10 @@ module.exports.sessionCheckUserToDisable = (req, res, next) => {
     }
     return next();
 }
+
+module.exports.blockLoginPage = (req, res, next) => {
+    if (req.session.user_id) {
+        return res.redirect('/home');
+    }
+    return next();
+}

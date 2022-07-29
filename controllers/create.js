@@ -61,13 +61,6 @@ async function sendMail(message) {
     }
 }
 
-async function getEmailTemplate(path, data) {
-    try {
-        console.log(path, data);
-        await ejs.renderFile(path, data);
-    } catch (err) { console.log('-----Failed to get email template-----', err) }
-}
-
 module.exports.renderNewUserForm = (req, res) => {
     res.render('create/create', { error: false })
 }

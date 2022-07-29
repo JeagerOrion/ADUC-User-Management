@@ -27,7 +27,6 @@ ldapClient.on('error', function (err) {
 })
 
 
-
 module.exports.renderLoginForm = (req, res) => {
     res.render('login/login')
 }
@@ -55,7 +54,7 @@ module.exports.authenticate = async (req, res) => {
             }
             if (isAuthenticated === false) {
                 console.log(`Failed sign in attempt for ${username}`)
-                req.flash('error', 'Incorrect username or password')
+                req.flash('error', 'Incorrect username or password');
                 return res.redirect('/',)
             }
         }

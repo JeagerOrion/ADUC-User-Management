@@ -1,7 +1,6 @@
 Verify Disable account exists
 
 Flash
-loading gif
 Enable duplicate accounts
     OAuth 2.0 Google API to reactivate suspended Google accounts
 
@@ -11,9 +10,10 @@ Disable user sync with Google
 Create user sync with eReach
 
 SMTP/email service for:
-    Account creation/disabling
     Failed sign in attempts
+        -Likely to be users inserting their password in the username field
     Extra IT needs
+        -Check with HR to match workflow
 
 Server logging - sign ins and user activity with timestamps
 

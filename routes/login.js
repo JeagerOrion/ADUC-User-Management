@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const login = require('../controllers/login')
-const { isLoggedIn } = require('../middleware');
+const { isLoggedIn, blockLoginPage } = require('../middleware');
 
 router.route('/')
-    .get(login.renderLoginForm)
-    .post(login.authenticate)
+    .get(blockLoginPage, login.renderLoginForm)
+    .post(blockLoginPage, login.authenticate)
 
 router.get('/home', isLoggedIn, login.homePage);
 
