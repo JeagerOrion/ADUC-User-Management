@@ -78,10 +78,13 @@ module.exports.createNewUser = (req, res) => {
             // Destructure new user info from req.body.newUser
 
             console.log('Bind complete');
-            const { firstName, lastName, emailDomain, office, jobTitle } = req.body.newUser;
-            const userName = `${firstName}.${lastName}`;
+            const { firstName, lastName, emailDomain, office, jobTitle, supervisorEmail } = req.body.newUser;
+            let userName = `${firstName}.${lastName}`;
+            userName = userName.replace(/\s+/g, '');
+            userName = userName.slice(0, 20);
             const commonName = `${firstName} ${lastName}`
-            const email = userName.toLowerCase() + emailDomain;
+            let email = userName.toLowerCase() + emailDomain;
+            email = email.replace(/\s+/g, '');
             const organizationalUnit = 'OU=Users,OU=IT Dept,DC=whitesrfs,DC=loc'
             const distinguishedName = `CN=${firstName} ${lastName},OU=Users,OU=${office},DC=whitesrfs,DC=loc`
             let newUserPassword = process.env.NEW_USER_PASSWORD;
@@ -127,7 +130,8 @@ module.exports.createNewUser = (req, res) => {
                 distinguishedName,
                 commonName,
                 groups,
-                description
+                description,
+                supervisorEmail
             };
 
             req.session.newUser = newUserFullDetails;

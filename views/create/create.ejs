@@ -7,7 +7,7 @@
                 <h1 class="h1">Create a New User Account</h1>
             </div>
 
-            <form action="/create" class="validatedForm" method="post" id="form" novalidate>
+            <form action="/create" class="validatedForm" method="post" id="form">
                 <div class="row mb-3">
                     <div class="col mx-auto mb-3">
                         <label class="form-label" for="firstName">First Name:</label>
@@ -44,19 +44,14 @@
                             <label for="jobTitle" class="form-label">Job Title:</label>
                             <select id="jobTitle" name="newUser[jobTitle]" class="form-select" required>
                                 '<option selected disabled value="">Please Select an Office</option>'
-                                <!-- <option value="cm.template">Case Manager</option>
-                                <option value="crarft.template">Compass Rose Family Teacher</option>
-                                <option value="crteach.template">Compass Rose School Teacher</option>
-                                <option value="fp.template">Family Preservation</option>
-                                <option value="fs.template">Family Specialist</option>
-                                <option value="fs.intern">Intern (Family Specialist)</option>
-                                <option value="residential.intern">Intern (Residential)</option>
-                                <option value="ycs.template">Night Shift/YCS</option>
-                                <option value="recoveryrft.template">Recovery Services</option>
-                                <option selected value="rft.template">Residential Family Teacher</option>
-                                <option value="rts.template">Residential Teaching Specialist</option>
-                                <option value="sa.template">Store Associate</option> -->
                             </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-7 mx-auto">
+                            <label for="newUser[supervisorEmail]" class="form-label">Supervisor Email Address:</label>
+                            <input type="email" id="supervisorEmail" name="newUser[supervisorEmail]"
+                                class="form-control" required>
                         </div>
                     </div>
                 </div>

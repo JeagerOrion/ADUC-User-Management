@@ -53,9 +53,9 @@ module.exports.authenticate = async (req, res) => {
                 }
             }
             if (isAuthenticated === false) {
-                console.log(`Failed sign in attempt for ${username}`)
+                console.log(`Failed sign in attempt for ${username}`);
                 req.flash('error', 'Incorrect username or password');
-                return res.redirect('/',)
+                return res.redirect('/');
             }
         }
         catch (err) {

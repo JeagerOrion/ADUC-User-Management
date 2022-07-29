@@ -21,18 +21,24 @@
                                     <%= newUser.description %>
                                 </h5>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 text-break">
                                 <h5>
                                     <u>Email Address:</u>
                                     <%= newUser.email %>
                                 </h5>
                             </div>
+                            <div class="mb-3 text-break">
+                                <h5>
+                                    <u>Supervisor Email Address:</u>
+                                    <%= newUser.supervisorEmail %>
+                                </h5>
+                            </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-md-auto">
                             <div class="row">
                                 <h4><u>Email Groups:</u></h4>
                             </div>
-                            <div class="col-4">
+                            <div class="col-md-auto">
                                 <ul>
                                     <% for (let group of newUser.groups) { %>
                                         <li>

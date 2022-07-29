@@ -1,6 +1,3 @@
-Verify Disable account exists
-
-Flash
 Enable duplicate accounts
     OAuth 2.0 Google API to reactivate suspended Google accounts
 
