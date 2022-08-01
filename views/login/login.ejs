@@ -4,7 +4,7 @@
             <h1>Log in</h1>
         </div>
         <div class="col-3 ms-1">
-            <form action="/" method="POST">
+            <form action="/" method="POST" id="form">
                 <div class="mb-3">
                     <label class="form-label" for="username">Username:</label>
                     <input class="form-control" type="text" placeholder="Username" id="username" name="login[username]">
@@ -15,8 +15,10 @@
                         name="login[password]">
                 </div>
                 <div class="mb-3">
-                    <button class="btn btn-primary col-3">Log In</button>
+                    <button class="btn btn-primary col-3" id="submit">Log In</button>
                 </div>
         </div>
     </div>
     </form>
+
+    <script src="/js/loadingSpinner.js"></script>

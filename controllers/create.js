@@ -260,6 +260,7 @@ module.exports.confirmDisableUserAccount = (req, res) => {
             console.log(`Unable to find user ${userName}`)
             console.log(err);
             ldapClient.unbind();
+            req.flash('error', `The account "${userName}" does not exist.`)
             return res.redirect('disable')
         }
     })
