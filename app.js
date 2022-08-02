@@ -22,7 +22,7 @@ const flash = require('connect-flash');
 const helmet = require('helmet');
 
 const port = 443;
-const ipAddress = '172.16.0.174';
+const ipAddress = process.env.HOST_IP_ADDRESS;
 const secret = process.env.SECRET;
 
 const sessionConfig = {
