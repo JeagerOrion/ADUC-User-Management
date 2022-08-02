@@ -21,9 +21,10 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const helmet = require('helmet');
 
-const port = 443;
-const ipAddress = '172.16.0.174';
+const port = 3000;
+const ipAddress = process.env.HOST_IP_ADDRESS;
 const secret = process.env.SECRET;
+const sslCertificateName = process.env.SSL_CERTIFICATE_NAME;
 
 const sessionConfig = {
     secret,
