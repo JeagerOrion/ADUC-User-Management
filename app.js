@@ -21,7 +21,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const helmet = require('helmet');
 
-const port = 443;
+const port = 3000;
 const ipAddress = process.env.HOST_IP_ADDRESS;
 const secret = process.env.SECRET;
 const sslCertificateName = process.env.SSL_CERTIFICATE_NAME;
@@ -63,7 +63,7 @@ app.use('/', loginRoutes);
 app.use('/create', createRoutes);
 
 const httpsConfig = {
-    pfx: fs.readFileSync(path.join(__dirname, sslCertificateName.toString())),
+    pfx: fs.readFileSync(path.join(__dirname, 'UserManagementSiteCert.pfx')),
     passphrase: process.env.CERTIFICATE_PASSPHRASE
 };
 
