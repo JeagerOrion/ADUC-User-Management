@@ -6,6 +6,7 @@ const domainUser = process.env.DOMAIN_USER;
 const domainUserPassword = process.env.DOMAIN_USER_PASSWORD;
 const domainBaseDN = process.env.DOMAIN_BASE_DN;
 const authorizedAccessGroup = process.env.AUTHORIZED_AD_GROUP;
+const { securityLog, accountLog, errorLog } = require('../logger.js');
 
 const ad = new AD({
     url: domainUrl,
@@ -24,6 +25,7 @@ const ldapClient = ldapJs.createClient(ldapConfig);
 
 ldapClient.on('error', function (err) {
     console.log(err);
+    errorLog.error(err);
 })
 
 
@@ -44,16 +46,19 @@ module.exports.authenticate = async (req, res) => {
                     const authorCommonName = authorFullDetails.cn;
                     req.session.authorFullDetails = authorFullDetails;
                     console.log(`User: ${authorCommonName} has logged in`);
+                    securityLog.trace(`User: ${username} has logged in`);
                     req.session.user_id = username;
                     const redirectUrl = req.session.returnTo || 'home';
                     return res.redirect(redirectUrl);
                 }
                 catch (err) {
-                    console.log(err)
+                    console.log(err);
+                    errorLog.error(err);
                 }
             }
             if (isAuthenticated === false) {
                 console.log(`Failed sign in attempt for ${username}`);
+                securityLog.trace(`Failed sign in attempt for ${username}`);
                 req.flash('error', 'Incorrect username or password');
                 return res.redirect('/');
             }
@@ -61,11 +66,13 @@ module.exports.authenticate = async (req, res) => {
         catch (err) {
             console.log('isTrue catch')
             console.log(err);
+            errorLog.error(err);
             return res.send(err);
         }
     }
     if (isMember === false) {
-        console.log(`Unauthorized access attempt from ${username}`)
+        console.log(`Unauthorized access attempt from ${username}`);
+        securityLog.trace(`Unauthorized access attempt from ${username}`);
         return res.render('login/unauthorized')
     }
 }
@@ -74,6 +81,7 @@ module.exports.logout = (req, res) => {
     userLoggingOut = req.session.user_id;
     req.session.user_id = undefined;
     console.log(`${userLoggingOut} has logged out`)
+    securityLog.trace(`${userLoggingOut} has logged out`)
     return res.redirect('/');
 }
 

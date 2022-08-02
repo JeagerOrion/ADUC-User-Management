@@ -1,0 +1,24 @@
+[2022-08-01T14:54:53.688] [ERROR] error - Error: read ECONNRESET
+    at TLSWrap.onStreamRead (internal/stream_base_commons.js:209:20) {
+  errno: -4077,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+[2022-08-01T14:54:53.689] [ERROR] error - Error: read ECONNRESET
+    at TLSWrap.onStreamRead (internal/stream_base_commons.js:209:20) {
+  errno: -4077,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+[2022-08-01T15:10:54.187] [ERROR] error - Error: read ECONNRESET
+    at TLSWrap.onStreamRead (internal/stream_base_commons.js:209:20) {
+  errno: -4077,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+[2022-08-01T15:10:54.187] [ERROR] error - Error: read ECONNRESET
+    at TLSWrap.onStreamRead (internal/stream_base_commons.js:209:20) {
+  errno: -4077,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}

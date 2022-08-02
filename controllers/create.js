@@ -2,6 +2,7 @@ const AD = require('ad');
 const ldapJs = require('ldapjs');
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
+const { securityLog, accountsLog, errorLog } = require('../logger.js');
 
 const domainUrl = process.env.DOMAIN_URL;
 const domainUser = process.env.DOMAIN_USER;
@@ -39,6 +40,7 @@ const ldapClient = ldapJs.createClient(ldapConfig);
 
 ldapClient.on('error', function (err) {
     console.log(err);
+    errorLog.error(err);
 })
 
 const smtpConfig = {
@@ -58,6 +60,7 @@ async function sendMail(message) {
     }
     catch (err) {
         console.log(err);
+        errorLog.error(err);
     }
 }
 
@@ -72,6 +75,7 @@ module.exports.createNewUser = (req, res) => {
     ldapClient.bind(domainUser, domainUserPassword, async (err) => {
         if (err) {
             console.log(err);
+            errorLog.error(err);
             return res.send('Something went wrong with binding LDAP');
         } else {
 
@@ -143,6 +147,7 @@ module.exports.createNewUser = (req, res) => {
                 ldapClient.add(distinguishedName, newUser, err => {
                     if (err) {
                         console.log(err);
+                        errorLog.error(err, distinguishedName, newUser);
                         console.log(distinguishedName, newUser)
                         ldapClient.unbind();
                         console.log('Unbind complete');
@@ -150,7 +155,8 @@ module.exports.createNewUser = (req, res) => {
                     } else {
                         //After successsful user creation
 
-                        console.log('Successfully created new user', newUser)
+                        console.log(`${req.session.authorFullDetails.sAMAccountName} has successfully created new user`, newUser)
+                        accountsLog.trace(`${req.session.authorFullDetails.sAMAccountName} has successfully created new user`, newUser)
 
                         // Add user to groups
                         iterateOverGroups(groups)
@@ -161,7 +167,6 @@ module.exports.createNewUser = (req, res) => {
                                 const successTemplate = 'views/emailTemplates/success.ejs'
                                 newUserFullDetails.author = req.session.authorFullDetails;
                                 req.session.newUserFullDetails = newUserFullDetails;
-                                console.log(newUserFullDetails);
                                 await ejs.renderFile(successTemplate, { newUserFullDetails }, async (err, html) => {
                                     currentUser = newUserFullDetails.author.cn;
                                     message = {
@@ -177,7 +182,8 @@ module.exports.createNewUser = (req, res) => {
 
                             })
                             .catch((err) => {
-                                console.log(err)
+                                console.log(err);
+                                errorLog.error(err);
                             })
                     }
                 })
@@ -185,6 +191,7 @@ module.exports.createNewUser = (req, res) => {
                 //If the user already exists, notify the creator
 
                 console.log(`The user ${userName} already exists!`);
+                accountsLog.trace(`Attempted duplication of ${userName}`);
                 ldapClient.unbind();
                 console.log('Unbind complete');
                 return res.redirect('create/duplicate');
@@ -239,6 +246,7 @@ module.exports.disableUserAccount = async (req, res) => {
         } catch (err) {
             console.log(`Unable to disable user ${sAMAccountName}`)
             console.log(err);
+            errorLog.error(`Unable to disable ${sAMAccountName}`, err);
             return res.send('Something went wrong disabling the account')
         }
     })
@@ -252,13 +260,13 @@ module.exports.confirmDisableUserAccount = (req, res) => {
             const userExists = await ad.user(userName).exists();
             if (!userExists) { throw `${userName} does not exist` };
             const userToDisable = await ad.user(userName).get();
-            console.log(userToDisable);
             req.session.userToDisable = userToDisable;
             ldapClient.unbind();
             return res.redirect('confirmDisable')
         } catch (err) {
             console.log(`Unable to find user ${userName}`)
             console.log(err);
+            errorLog.error(`Unable to find ${userName}`, err);
             ldapClient.unbind();
             req.flash('error', `The account "${userName}" does not exist.`)
             return res.redirect('disable')
@@ -273,6 +281,8 @@ module.exports.renderConfirmDisable = (req, res) => {
 
 module.exports.accountDisabled = (req, res) => {
     const disabledAccount = req.session.disabledAccount;
+    const currentUser = req.session.user_id;
+    accountsLog.trace(`${disabledAccount.sAMAccountName} has been disabled by ${currentUser}`)
     res.render('create/accountDisabled', { disabledAccount });
 }
 

@@ -19,8 +19,10 @@ const path = require('path');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
+const helmet = require('helmet');
 
-const port = 3000
+const port = 443;
+const ipAddress = '172.16.0.174';
 const secret = process.env.SECRET;
 
 const sessionConfig = {
@@ -35,6 +37,8 @@ const sessionConfig = {
 app.use(session(sessionConfig))
 
 app.use(flash())
+app.use(helmet({ contentSecurityPolicy: false }));
+
 
 const loginRoutes = require('./routes/login')
 const createRoutes = require('./routes/create')
@@ -64,7 +68,7 @@ const httpsConfig = {
 
 const httpsServer = https.createServer(httpsConfig, app)
 
-httpsServer.listen(port, () => console.log(`Secure server is listening on ${port}`))
+httpsServer.listen(port, ipAddress, () => console.log(`Secure server is listening on ${port}`))
 
 
 

@@ -1,0 +1,37 @@
+[2022-08-01T14:27:53.586] [TRACE] accounts - Successfully created new user {
+  cn: 'Abra Kazam',
+  sn: 'Kazam',
+  mail: 'abra.kazam@whitesrfs.org',
+  objectClass: 'user',
+  userPrincipalName: 'abra.kazam@whitesrfs.org',
+  sAMAccountName: 'Abra.Kazam',
+  givenName: 'Abra',
+  displayName: 'Abra Kazam',
+  userAccountControl: 544,
+  description: 'Intern (Family Services)'
+}
+[2022-08-01T14:30:27.967] [TRACE] accounts - Alli.Kazam has been disabled by andy.reid
+[2022-08-01T14:34:56.044] [TRACE] accounts - Successfully created new user {
+  cn: 'Alli Kazam',
+  sn: 'Kazam',
+  mail: 'alli.kazam@whitesrfs.org',
+  objectClass: 'user',
+  userPrincipalName: 'alli.kazam@whitesrfs.org',
+  sAMAccountName: 'Alli.Kazam',
+  givenName: 'Alli',
+  displayName: 'Alli Kazam',
+  userAccountControl: 544,
+  description: 'Intern (Family Services)'
+}
+[2022-08-01T14:36:07.960] [TRACE] accounts - andy.reid has successfully created new user {
+  cn: 'Abra Kadabra',
+  sn: 'Kadabra',
+  mail: 'abra.kadabra@whitesrfs.org',
+  objectClass: 'user',
+  userPrincipalName: 'abra.kadabra@whitesrfs.org',
+  sAMAccountName: 'Abra.Kadabra',
+  givenName: 'Abra',
+  displayName: 'Abra Kadabra',
+  userAccountControl: 544,
+  description: 'Intern (Family Services)'
+}
