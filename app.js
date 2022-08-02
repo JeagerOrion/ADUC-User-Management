@@ -24,6 +24,7 @@ const helmet = require('helmet');
 const port = 443;
 const ipAddress = process.env.HOST_IP_ADDRESS;
 const secret = process.env.SECRET;
+const sslCertificateName = process.env.SSL_CERTIFICATE_NAME;
 
 const sessionConfig = {
     secret,
@@ -62,7 +63,7 @@ app.use('/', loginRoutes);
 app.use('/create', createRoutes);
 
 const httpsConfig = {
-    pfx: fs.readFileSync(path.join(__dirname, 'newUserSiteCertificate.pfx')),
+    pfx: fs.readFileSync(path.join(__dirname, sslCertificateName)),
     passphrase: process.env.CERTIFICATE_PASSPHRASE
 };
 
