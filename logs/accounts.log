@@ -35,39 +35,4 @@
   userAccountControl: 544,
   description: 'Intern (Family Services)'
 }
-[2022-08-02T14:05:03.198] [TRACE] accounts - andy.reid has successfully created new user {
-  cn: 'Test FCA',
-  sn: 'FCA',
-  mail: 'test.fca@whitesrfs.org',
-  objectClass: 'user',
-  userPrincipalName: 'test.fca@whitesrfs.org',
-  sAMAccountName: 'Test.FCA',
-  givenName: 'Test',
-  displayName: 'Test FCA',
-  userAccountControl: 544,
-  description: 'Foster Care Advocate'
-}
-[2022-08-02T14:10:25.111] [TRACE] accounts - andy.reid has successfully created new user {
-  cn: 'ZZZTestuser2 Case Manager',
-  sn: 'Case Manager',
-  mail: 'zzztestuser2.caseman@whitesrfs.org',
-  objectClass: 'user',
-  userPrincipalName: 'zzztestuser2.caseman@whitesrfs.org',
-  sAMAccountName: 'ZZZTestuser2.CaseMan',
-  givenName: 'ZZZTestuser2',
-  displayName: 'ZZZTestuser2 Case Manager',
-  userAccountControl: 544,
-  description: 'Residential Case Manager'
-}
-[2022-08-02T14:10:53.665] [TRACE] accounts - andy.reid has successfully created new user {
-  cn: 'FCA2 Test',
-  sn: 'Test',
-  mail: 'fca2.test@whitesrfs.org',
-  objectClass: 'user',
-  userPrincipalName: 'fca2.test@whitesrfs.org',
-  sAMAccountName: 'FCA2.Test',
-  givenName: 'FCA2',
-  displayName: 'FCA2 Test',
-  userAccountControl: 544,
-  description: 'Foster Care Advocate'
-}
+

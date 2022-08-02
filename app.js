@@ -63,7 +63,7 @@ app.use('/', loginRoutes);
 app.use('/create', createRoutes);
 
 const httpsConfig = {
-    pfx: fs.readFileSync(path.join(__dirname, 'newUserSiteCertificate.pfx')),
+    pfx: fs.readFileSync(path.join(__dirname, 'UserManagementSiteCert.pfx')),
     passphrase: process.env.CERTIFICATE_PASSPHRASE
 };
 

@@ -1,7 +1,7 @@
 node_modules
 .env
 newUserSiteKeyExport.pfx
-logs/*
+UserManagementSiteCert.pfx
 logs/accounts.log
 logs/security.log
 logs/error.log
