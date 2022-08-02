@@ -14,35 +14,60 @@ const compassRoseJobs = [
     }
 ]
 
-const crownPointJobs = [{
-    value: 'fscrownpoint.template',
-    text: 'Family Specialist'
-}]
+const crownPointJobs = [
+    {
+        value: 'fscrownpoint.template',
+        text: 'Family Specialist'
+    },
+    {
+        value: 'fca.crownpoint',
+        text: 'Foster Care Advocate'
+    }]
 
-const fortWayneJobs = [{
-    value: 'fsfortwayne.template',
-    text: 'Family Specialist'
-}]
+const fortWayneJobs = [
+    {
+        value: 'fsfortwayne.template',
+        text: 'Family Specialist'
+    },
+    {
+        value: 'fca.fortwayne',
+        text: 'Foster Care Advocate'
+    }]
 
-const greenwoodJobs = [{
-    value: 'fsgreenwood.template',
-    text: 'Family Specialist'
-}]
+const greenwoodJobs = [
+    {
+        value: 'fsgreenwood.template',
+        text: 'Family Specialist'
+    },
+    {
+        value: 'fca.greenwood',
+        text: 'Foster Care Advocate'
+    }]
 
-const indianapolisJobs = [{
-    value: 'fsindianapolis.template',
-    text: 'Family Specialist'
-}]
+const indianapolisJobs = [
+    {
+        value: 'fsindianapolis.template',
+        text: 'Family Specialist'
+    },
+    {
+        value: 'fca.indianapolis',
+        text: 'Foster Care Advocate'
+    }]
 
 const recoveryServicesJobs = [{
     value: 'recoveryrft.template',
     text: 'Recovery Services Family Teacher'
 }]
 
-const southBendJobs = [{
-    value: 'fssouthbend.template',
-    text: 'Family Specialist'
-}]
+const southBendJobs = [
+    {
+        value: 'fssouthbend.template',
+        text: 'Family Specialist'
+    },
+    {
+        value: 'fca.southbend',
+        text: 'Foster Care Advocate'
+    }]
 
 const volunteersAndInternsJobs = [
     {
@@ -79,6 +104,10 @@ const wabashJobs = [
     {
         value: 'sa.template',
         text: 'Store Associate'
+    },
+    {
+        value: 'fca.wabash',
+        text: 'Foster Care Advocate'
     }
 ]
 
