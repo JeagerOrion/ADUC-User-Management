@@ -94,3 +94,15 @@
   code: 'ECONNRESET',
   syscall: 'read'
 }
+[2022-08-02T13:34:05.366] [ERROR] error - Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:217:20) {
+  errno: -4077,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+[2022-08-02T13:34:05.369] [ERROR] error - Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:217:20) {
+  errno: -4077,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
