@@ -2,3 +2,6 @@ node_modules
 .env
 newUserSiteKeyExport.pfx
 logs/*
+logs/accounts.log
+logs/security.log
+logs/error.log
