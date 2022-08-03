@@ -11,6 +11,10 @@ const compassRoseJobs = [
     {
         value: 'crteach.template',
         text: 'Compass Rose School Teacher'
+    },
+    {
+        value: 'cratherapist.template',
+        text: 'Therapist'
     }
 ]
 
@@ -22,6 +26,14 @@ const crownPointJobs = [
     {
         value: 'fca.crownpoint',
         text: 'Foster Care Advocate'
+    },
+    {
+        value: 'oa.crownpoint',
+        text: 'Office Assistant'
+    },
+    {
+        value: 'regionalmanager.crownpoint',
+        text: 'Regional Manager'
     }]
 
 const fortWayneJobs = [
@@ -32,6 +44,14 @@ const fortWayneJobs = [
     {
         value: 'fca.fortwayne',
         text: 'Foster Care Advocate'
+    },
+    {
+        value: 'oa.fortwayne',
+        text: 'Office Assistant'
+    },
+    {
+        value: 'regionalmanager.fortwayne',
+        text: 'Regional Manager'
     }]
 
 const greenwoodJobs = [
@@ -42,6 +62,14 @@ const greenwoodJobs = [
     {
         value: 'fca.greenwood',
         text: 'Foster Care Advocate'
+    },
+    {
+        value: 'oa.greenwood',
+        text: 'Office Assistant'
+    },
+    {
+        value: 'regionalmanager.greenwood',
+        text: 'Regional Manager'
     }]
 
 const indianapolisJobs = [
@@ -52,12 +80,25 @@ const indianapolisJobs = [
     {
         value: 'fca.indianapolis',
         text: 'Foster Care Advocate'
+    },
+    {
+        value: 'oa.indianapolis',
+        text: 'Office Assistant'
+    },
+    {
+        value: 'regionalmanager.indianapolis',
+        text: 'Regional Manager'
     }]
 
-const recoveryServicesJobs = [{
-    value: 'recoveryrft.template',
-    text: 'Recovery Services Family Teacher'
-}]
+const recoveryServicesJobs = [
+    {
+        value: 'recoveryrft.template',
+        text: 'Recovery Services Family Teacher'
+    },
+    {
+        value: 'recovery.therapist',
+        text: 'Recovery Therapist'
+    }]
 
 const southBendJobs = [
     {
@@ -67,6 +108,14 @@ const southBendJobs = [
     {
         value: 'fca.southbend',
         text: 'Foster Care Advocate'
+    },
+    {
+        value: 'oa.southbend',
+        text: 'Office Assistant'
+    },
+    {
+        value: 'regionalmanager.southbend',
+        text: 'Regional Manager'
     }]
 
 const volunteersAndInternsJobs = [
@@ -82,12 +131,40 @@ const volunteersAndInternsJobs = [
 
 const wabashJobs = [
     {
+        value: 'gtfl.manufacturingtrainer',
+        text: 'Advanced Manufacturing Trainer'
+    },
+    {
+        value: 'cafeteriastaff.template',
+        text: 'Cafeteria Staff'
+    },
+    {
         value: 'cm.template',
         text: 'Case Manager'
     },
     {
+        value: 'custodian.template',
+        text: 'Custodian'
+    },
+    {
         value: 'fswabash.template',
         text: 'Family Specialist'
+    },
+    {
+        value: 'familypres.therapist',
+        text: 'Family Preservation Therapist'
+    },
+    {
+        value: 'familypres.programmanager',
+        text: 'Family Preservation Program Manager'
+    },
+    {
+        value: 'fca.wabash',
+        text: 'Foster Care Advocate'
+    },
+    {
+        value: 'groundskeeper.template',
+        text: 'Groundskeeper'
     },
     {
         value: 'ycs.template',
@@ -102,12 +179,16 @@ const wabashJobs = [
         text: 'Residential Teaching Specialist'
     },
     {
+        value: 'residentialtherapist',
+        text: 'Residential Therapist'
+    },
+    {
         value: 'sa.template',
         text: 'Store Associate'
     },
     {
-        value: 'fca.wabash',
-        text: 'Foster Care Advocate'
+        value: 'transporter.template',
+        text: 'Transporter'
     }
 ]
 
