@@ -62,17 +62,17 @@ app.use((req, res, next) => {
 app.use('/', loginRoutes);
 app.use('/create', createRoutes);
 
-const httpsConfig = {
-    pfx: fs.readFileSync(path.join(__dirname, 'UserManagementSiteCert.pfx')),
-    passphrase: process.env.CERTIFICATE_PASSPHRASE
-};
+// const httpsConfig = {
+//     pfx: fs.readFileSync(path.join(__dirname, 'UserManagementSiteCert.pfx')),
+//     passphrase: process.env.CERTIFICATE_PASSPHRASE
+// };
 
-const httpsServer = https.createServer(httpsConfig, app)
+// const httpsServer = https.createServer(httpsConfig, app)
 
-httpsServer.listen(port, ipAddress, () => console.log(`Secure server is listening on ${port}`))
+// httpsServer.listen(port, ipAddress, () => console.log(`Secure server is listening on ${port}`))
 
 
 
-// app.listen(port, () => {
-//     console.log(`Listening on port ${port}`)
-// })
+app.listen(port, () => {
+    console.log(`Listening on port ${port}`)
+})
