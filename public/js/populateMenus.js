@@ -126,31 +126,31 @@ const createJobTitleOption = function (job) {
 const configureJobTitleMenu = function (officeSelectMenu, jobTitleSelectMenu) {
     if (officeSelectMenu.value === 'Main Office') {
         jobTitleSelectMenu.length = 0;
-        for (let job of compassRoseJobs) {
+        for (let job of mainOfficeJobs) {
             createJobTitleOption(job);
         }
     }
     if (officeSelectMenu.value === 'Regional Office One') {
         jobTitleSelectMenu.length = 0;
-        for (let job of crownPointJobs) {
+        for (let job of regionalOfficeOneJobs) {
             createJobTitleOption(job);
         }
     }
     if (officeSelectMenu.value === 'Regional Office Two') {
         jobTitleSelectMenu.length = 0;
-        for (let job of fortWayneJobs) {
+        for (let job of regionalOfficeTwoJobs) {
             createJobTitleOption(job);
         }
     }
     if (officeSelectMenu.value === 'Regional Office Three') {
         jobTitleSelectMenu.length = 0;
-        for (let job of greenwoodJobs) {
+        for (let job of RegionalOfficeThreeJobs) {
             createJobTitleOption(job);
         }
     }
     if (officeSelectMenu.value === 'Regional Office Four') {
         jobTitleSelectMenu.length = 0;
-        for (let job of indianapolisJobs) {
+        for (let job of RegionalOfficeFourJobs) {
             createJobTitleOption(job);
         }
     }
