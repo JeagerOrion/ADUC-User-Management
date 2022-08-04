@@ -9,6 +9,3 @@ form.addEventListener('submit', function (e) {
     spinner.role = 'status';
     submitButton.appendChild(spinner);
 })
-
-
-

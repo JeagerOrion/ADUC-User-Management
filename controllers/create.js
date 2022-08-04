@@ -16,7 +16,7 @@ const emailSecurityGroup = process.env.EMAIL_SECURITY_GROUP;
 const emailTechnologyGroup = process.env.EMAIL_TECHNOLOGY_GROUP;
 
 let message = {
-    from: '"User Account Management System" <useraccountmanagement@whitesrfs.org>',
+    from: '"User Account Management System" <useraccountmanagement@domain.com>',
     to: emailConfirmationGroup,
     subject: ``,
     text: ``,
@@ -89,7 +89,10 @@ module.exports.createNewUser = (req, res) => {
             const commonName = `${firstName} ${lastName}`
             let email = userName.toLowerCase() + emailDomain;
             email = email.replace(/\s+/g, '');
-            const distinguishedName = `CN=${firstName} ${lastName},OU=Users,OU=${office},DC=whitesrfs,DC=loc`
+
+
+            //"office" will be the OU the user is inserted into
+            const distinguishedName = `CN=${firstName} ${lastName},OU=Users,OU=${office},DC=domain,DC=loc`
             let newUserPassword = process.env.NEW_USER_PASSWORD;
 
             // Find template to copy from 
@@ -100,6 +103,7 @@ module.exports.createNewUser = (req, res) => {
             const groups = templateUser.groups.map(groupArray => groupArray.cn);
 
             //create newUser object for AD
+            //userAccountControl of 544 for standard user with no password assigned
 
             const newUser = {
                 cn: commonName,
@@ -114,11 +118,11 @@ module.exports.createNewUser = (req, res) => {
                 description
             }
 
-            // Async to add user to groups
+            // Async function to add user to groups
 
             async function iterateOverGroups(groups) {
                 for (let group of groups) {
-                    await ad.user(newUser.sAMAccountName).addToGroup(group)
+                    await ad.user(newUser.sAMAccountName).addToGroup(group);
                 }
             };
 
@@ -169,7 +173,7 @@ module.exports.createNewUser = (req, res) => {
                                 await ejs.renderFile(successTemplate, { newUserFullDetails }, async (err, html) => {
                                     currentUser = newUserFullDetails.author.cn;
                                     message = {
-                                        from: '"User Account Management System" <useraccountmanagement@whitesrfs.org>',
+                                        from: '"User Account Management System" <useraccountmanagement@domain.com>',
                                         to: emailConfirmationGroup,
                                         subject: `An account has been created for ${newUser.cn}`,
                                         text: `An account has successfully been created for ${newUser.cn}. Created by ${currentUser}`,
@@ -194,7 +198,6 @@ module.exports.createNewUser = (req, res) => {
                 ldapClient.unbind();
                 console.log('Unbind complete');
                 return res.redirect('create/duplicate');
-
             }
         }
     })
@@ -232,7 +235,7 @@ module.exports.disableUserAccount = async (req, res) => {
 
                 await ejs.renderFile(disabledTemplate, { accountToDisable }, async (err, html) => {
                     message = {
-                        from: '"User Account Management System" <useraccountmanagement@whitesrfs.org>',
+                        from: '"User Account Management System" <useraccountmanagement@domain.com>',
                         to: emailConfirmationGroup,
                         subject: `${accountToDisable.sAMAccountName} has been disabled`,
                         text: `The account for ${accountToDisable.sAMAccountName} has been disabled by ${accountToDisable.author.cn}`,
