@@ -40,7 +40,6 @@ const ldapClient = ldapJs.createClient(ldapConfig);
 
 ldapClient.on('error', function (err) {
     console.log(err);
-    errorLog.error(err);
 })
 
 const smtpConfig = {
