@@ -40,7 +40,6 @@ app.use(session(sessionConfig))
 app.use(flash())
 app.use(helmet({ contentSecurityPolicy: false }));
 
-
 const loginRoutes = require('./routes/login')
 const createRoutes = require('./routes/create')
 
@@ -70,8 +69,6 @@ app.use('/create', createRoutes);
 // const httpsServer = https.createServer(httpsConfig, app)
 
 // httpsServer.listen(port, ipAddress, () => console.log(`Secure server is listening on ${port}`))
-
-
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
