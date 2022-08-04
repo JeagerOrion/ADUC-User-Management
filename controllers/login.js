@@ -35,7 +35,7 @@ module.exports.renderLoginForm = (req, res) => {
 
 module.exports.authenticate = async (req, res) => {
     const { username, password } = req.body.login;
-    appendedUsername = username + '@whitesrfs.org';
+    appendedUsername = username + '@domain.org';
     const isMember = await ad.user(username).isMemberOf(authorizedAccessGroup);
     if (isMember === true) {
         try {

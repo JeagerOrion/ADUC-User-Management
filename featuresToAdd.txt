@@ -1,7 +1,0 @@
-Enable duplicate accounts
-    OAuth 2.0 Google API to reactivate suspended Google accounts
-
-Disable user sync with Google
-Create user sync with eReach
-
-Server logging - sign ins and user activity with timestamps
