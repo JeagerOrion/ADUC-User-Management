@@ -35,6 +35,7 @@ NodeJS for whatever server you're running this on
 Template accounts in ADUC for this app to copy from
 
 **---Optional---**
+
 For notification emails:
 An SMTP server (or other provider/nodemailer solution) linked to whatever email account is sending out emails
 
