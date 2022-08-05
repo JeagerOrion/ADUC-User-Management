@@ -40,6 +40,13 @@ An SMTP server (or other provider/nodemailer solution) linked to whatever email 
 
 Fill out the .blankenv and rename it .env
 
-In public/js/populateMenus.js replace the "mainOfficeJobs" and "regionalOfficeJobs" with value/text depending on how your ADUC is structured. We have our ADUC broken down like a phone book with different regional offices as their own OUs, so I have the app configured to show job titles based off of whatever office the user will be in.
+In public/js/populateMenus.js replace the "mainOfficeJobs" and "regionalOfficeJobs" with value/text depending on how your ADUC is structured. 
 Value will be the sAMAccount name of the template user account for that job.
 text will be what the site user sees in the drop down menu for that job title. 
+For the configureJobTitleMenu function, replace the "Main Office" "Regional Office One" etc with your ADUC Organizational Units. The controllers/create.js file is going to sort the user into an OU based on this string. If you only have one "Staff" OU then you'll probably want to either ditch the dropdowns or change the logic in controllers/create.js.
+
+In views/create/create.ejsChange the values for the select lists to match what you have in public/js/populateMenus.js.
+
+The app is styled with Bootstrap 5, so feel free to change the element classes around or ditch it and use your own. Style and brand away. 
+
+I may be failing to mention some logic that needs changed/updated for the app to function for you. If someone out there does wind up trying this and has trouble, feel free to reach out. 
